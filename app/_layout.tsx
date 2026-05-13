@@ -1,24 +1,32 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
-
-import { useColorScheme } from '@/hooks/use-color-scheme';
-
-export const unstable_settings = {
-  anchor: '(tabs)',
-};
+import ContextProvider from "@/lib/contextProvider";
+import { useFonts } from "expo-font";
+import { SplashScreen, Stack } from "expo-router";
+import { useEffect } from "react";
+import "./globals.css";
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
+
+  const [fontsLoaded] = useFonts({
+    "Rubik-Bold": require('../assets/fonts/Rubik-Bold.ttf'),
+    "Rubik-ExtraBold": require('../assets/fonts/Rubik-ExtraBold.ttf'),
+    "Rubik-Light": require('../assets/fonts/Rubik-Light.ttf'),
+    "Rubik-Medium": require('../assets/fonts/Rubik-Medium.ttf'),
+    "Rubik-Regular": require('../assets/fonts/Rubik-Regular.ttf'),
+    "Rubik-SemiBold": require('../assets/fonts/Rubik-SemiBold.ttf'),
+  });
+
+  useEffect(() => {
+    if (fontsLoaded) {
+      SplashScreen.hideAsync()
+      //if font is loaded, hide splashscreen 
+    }
+  }, [fontsLoaded])
+
+  if (!fontsLoaded) return null
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    <ContextProvider>
+      <Stack screenOptions={{ headerShown: false }} />
+    </ContextProvider>
   );
 }
