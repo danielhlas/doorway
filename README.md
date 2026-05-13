@@ -7,5 +7,4 @@
 - Google login
 - Search, filter and view properties
 
-![Preview](./preview.webp)
 ![Preview](./preview.png)
