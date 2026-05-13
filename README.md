@@ -9,7 +9,4 @@
 - Google login
 - Search, filter and view properties
 
-![Preview](./preview2.webp)
-
-
-![Preview](./preview1.webp)
+![Preview](./preview3.webp)
